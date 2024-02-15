@@ -6,12 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <ul>
-        {% for recipe in recipes %}
-        <li>
-            <a href={{ recipe.link }}>{{ recipe.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
+    {% for ingredient in ingredients %}
+    <li>{{ ingredient.quantity }} of {{ingredient.name}}</li>
+    {% endfor %}
 </body>
 </html>
