@@ -3,7 +3,7 @@ from django.urls import reverse
 
 # Create your models here.
 
-class Ingredient(models.Models):
+class Ingredient(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
         return self.name
@@ -11,7 +11,7 @@ class Ingredient(models.Models):
     def get_absolute_url(self):
         return reverse('ledger:ingredients', args=[self.pk])
 
-class Recipe(models.Models):
+class Recipe(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
         return self.name
