@@ -1,9 +1,6 @@
 from django.db import models
-<<<<<<< Updated upstream
-
-# Create your models here.
-=======
 from django.urls import reverse
+from datetime import datetime
 from django.contrib.auth.models import User
 
 class Ingredient(models.Model):
@@ -16,6 +13,17 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
+    author = models.ForeignKey(
+        'Profile',
+        on_delete = models.CASCADE,
+        related_name = 'users',
+        default = None,
+        null = True
+    )
+
+    created_on = models.DateTimeField(auto_now_add=True, null = True)
+    update_on = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.name
     
@@ -40,7 +48,8 @@ class RecipeIngredient(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    year_level = models.IntegerField()
     name = models.CharField(max_length=50)
-    bio = models.CharField(max_length=255)
->>>>>>> Stashed changes
+    bio = models.TextField()
+
+    def __str__(self):
+        return self.name

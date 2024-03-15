@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<body>
+    <h2>{{name}}</h2>
+    <p>Created by: {{author}}</p>
+</body>
     {% for ingredient in ingredients %}
     <li>{{ ingredient.quantity }} of {{ingredient.name}}</li>
     {% endfor %}
