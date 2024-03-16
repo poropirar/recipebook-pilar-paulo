@@ -1,7 +1,15 @@
 from django.db import models
 from django.urls import reverse
-from datetime import datetime
 from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    bio = models.TextField()
+
+    def __str__(self):
+        return self.name
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
@@ -14,11 +22,9 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(
-        'Profile',
+        Profile,
         on_delete = models.CASCADE,
-        related_name = 'users',
-        default = None,
-        null = True
+        related_name = 'recipe',
     )
 
     created_on = models.DateTimeField(auto_now_add=True, null = True)
@@ -35,21 +41,14 @@ class RecipeIngredient(models.Model):
     ingredient = models.ForeignKey(
         Ingredient, 
         on_delete=models.CASCADE,
-        related_name='ingredients',
-        default=1
+        related_name="ingredients",
         )
     
     recipe = models.ForeignKey(
         Recipe, 
         on_delete=models.CASCADE,
-        related_name='recipes',
-        default=1
+        related_name="recipes",
         )
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    bio = models.TextField()
-
+    
     def __str__(self):
-        return self.name
+        return f"{self.ingredient} for {self.recipe}"

@@ -6,14 +6,14 @@ from .models import Ingredient, Recipe, RecipeIngredient
 
 def recipelist(request):
     recipes = Recipe.objects.all()
-    items = {"list": recipes}
+    context = {"recipes": recipes}
 
-    return render(request, "recipes_list.html", items)
+    return render(request, "listofrecipes.html", context)
 
 @login_required
 def recipe(request, pk):
     recipe = Recipe.objects.get(pk=pk)
-    items = {
+    context = {
         "name": recipe.name,
         "author": recipe.author,
         "created_on": recipe.created_on,
@@ -22,6 +22,6 @@ def recipe(request, pk):
     }
 
 
-    return render(request, "recipe1.html", items)
+    return render(request, "recipe1.html", context)
 
     # Create your views here.

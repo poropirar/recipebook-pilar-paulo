@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Recipe Book</title>
 </head>
+
 <body>
+<header>
     <h1>Recipe Book</h1>
-        {% block content %}{% endblock %}
+    {% if user.is_authenticated %}
+    <p><i>Welcome, {{ user.username }}!</i></p>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+</header>
+    {% block content %}{% endblock %}
 </body>
-</html>
